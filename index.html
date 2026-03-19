@@ -51,8 +51,13 @@
     pointer-events: none;
     z-index: 0;
   }
+  
+  .hidden { display: none !important; }
+  .view-section { animation: fadeIn 0.4s ease-out; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     padding: 1.2rem 6vw;
     display: flex; justify-content: space-between; align-items: center;
     border-bottom: 1px solid var(--line-faint);
@@ -61,306 +66,365 @@
   }
   .nav-logo {
     font-family: 'Azeret Mono', monospace; font-size: 0.75rem;
-    color: var(--amber); letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--amber); letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
   }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
   .nav-links a {
     font-family: 'Azeret Mono', monospace; font-size: 0.72rem;
     color: var(--text-muted); text-decoration: none;
-    letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s;
+    letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; cursor: pointer;
   }
   .nav-links a:hover { color: var(--amber); }
 
-  /* HERO */
+  .hamburger {
+    display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001;
+  }
+  .hamburger span {
+    width: 25px; height: 2px; background: var(--amber); transition: 0.3s;
+  }
+
   #hero {
-    position: relative; z-index: 1;
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 8rem 10vw 4rem;
+    position: relative; z-index: 1; min-height: 100vh;
+    display: flex; align-items: center; padding: 8rem 10vw 4rem;
   }
   .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 5rem;
-    align-items: center;
-    width: 100%;
+    display: grid; grid-template-columns: 1fr auto; gap: 5rem; align-items: center; width: 100%;
   }
   .hero-eyebrow {
     font-family: 'Azeret Mono', monospace; font-size: 0.72rem;
     color: var(--amber); letter-spacing: 0.2em; text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;
   }
   .hero-eyebrow::before {
-    content: ''; display: inline-block;
-    width: 40px; height: 1px; background: var(--amber);
+    content: ''; display: inline-block; width: 40px; height: 1px; background: var(--amber);
   }
   h1 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(3.5rem, 7vw, 7rem);
-    line-height: 0.95; color: var(--white);
-    letter-spacing: -0.02em; margin-bottom: 1.5rem;
+    font-family: 'Archivo Black', sans-serif; font-size: clamp(3.5rem, 7vw, 7rem);
+    line-height: 0.95; color: var(--white); letter-spacing: -0.02em; margin-bottom: 1.5rem;
   }
   h1 span { color: transparent; -webkit-text-stroke: 1px var(--amber); }
   .hero-desc {
-    max-width: 500px; font-size: 0.95rem;
-    color: var(--text-muted); line-height: 1.8; margin-bottom: 2.5rem;
+    max-width: 500px; font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 2.5rem;
   }
   .hero-stats { display: flex; gap: 2.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
   .stat-block { display: flex; flex-direction: column; gap: 0.2rem; }
-  .stat-num {
-    font-family: 'Azeret Mono', monospace; font-size: 1.5rem;
-    color: var(--amber); font-weight: 500;
-  }
-  .stat-label {
-    font-size: 0.68rem; color: var(--text-dim);
-    letter-spacing: 0.1em; text-transform: uppercase;
-  }
+  .stat-num { font-family: 'Azeret Mono', monospace; font-size: 1.5rem; color: var(--amber); font-weight: 500; }
+  .stat-label { font-size: 0.68rem; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
   .hero-cta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
   .btn-primary {
-    font-family: 'Azeret Mono', monospace; font-size: 0.72rem;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    color: #fff; background: var(--amber);
-    padding: 0.85rem 2rem; border: none; cursor: pointer;
+    font-family: 'Azeret Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: #fff; background: var(--amber); padding: 0.85rem 2rem; border: none; cursor: pointer;
     text-decoration: none; transition: opacity 0.2s, transform 0.15s; display: inline-block;
   }
   .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
   .btn-ghost {
-    font-family: 'Azeret Mono', monospace; font-size: 0.72rem;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--text-muted); background: transparent;
-    padding: 0.85rem 2rem; border: 1px solid var(--line); cursor: pointer;
+    font-family: 'Azeret Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-muted); background: transparent; padding: 0.85rem 2rem; border: 1px solid var(--line); cursor: pointer;
     text-decoration: none; transition: color 0.2s, border-color 0.2s; display: inline-block;
   }
   .btn-ghost:hover { color: var(--amber); border-color: var(--amber); }
 
-  /* Photo Section */
-  .hero-photo-wrap {
-    position: relative; width: 280px; height: 280px; flex-shrink: 0;
-  }
+  .hero-photo-wrap { position: relative; width: 280px; height: 280px; flex-shrink: 0; }
   .hero-photo-wrap::before {
-    content: ''; position: absolute; inset: -8px;
-    border: 1px solid var(--line); transform: rotate(3deg);
+    content: ''; position: absolute; inset: -8px; border: 1px solid var(--line); transform: rotate(3deg);
   }
   .hero-photo-wrap::after {
-    content: ''; position: absolute; inset: -16px;
-    border: 1px solid rgba(74,143,212,0.12); transform: rotate(-2deg);
+    content: ''; position: absolute; inset: -16px; border: 1px solid rgba(74,143,212,0.12); transform: rotate(-2deg);
   }
   .hero-photo {
     width: 280px; height: 280px; object-fit: cover; object-position: center top;
     display: block; filter: grayscale(15%) contrast(1.05); position: relative; z-index: 1;
   }
 
-  /* SECTIONS */
   .section-outer { position: relative; z-index: 1; padding: 0 8vw; }
   .section-wrap { padding: 6rem 0; }
   .section-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 3.5rem; }
-  h2 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    color: var(--white); line-height: 1.1; letter-spacing: -0.02em;
-  }
+  h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2rem, 4vw, 3rem); color: var(--white); line-height: 1.1; letter-spacing: -0.02em; }
   h2 span { color: var(--amber); }
 
-  /* PROJECTS */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5px;
-  }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5px; }
   .project-card {
-    background: var(--bg2); border: 1px solid var(--line-faint);
-    padding: 2rem; cursor: pointer;
-    transition: background 0.25s, border-color 0.25s;
-    position: relative; overflow: hidden;
+    background: var(--bg2); border: 1px solid var(--line-faint); padding: 2rem; cursor: pointer;
+    transition: background 0.25s, border-color 0.25s; position: relative; overflow: hidden; height: 100%;
   }
   .project-card:hover { background: var(--bg3); border-color: var(--line); }
-  .project-tag {
-    font-family: 'Azeret Mono', monospace; font-size: 0.65rem;
-    color: var(--amber); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem;
-  }
-  .project-card h3 {
-    font-family: 'Archivo Black', sans-serif; font-size: 1.15rem;
-    color: var(--white); margin-bottom: 0.75rem; line-height: 1.3;
-  }
-  .project-card p {
-    font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;
-  }
-  .view-more-container {
-    margin-top: 3rem;
-    display: flex;
-    justify-content: center;
-  }
+  .project-tag { font-family: 'Azeret Mono', monospace; font-size: 0.65rem; color: var(--amber); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; display: block; }
+  .project-card h3 { font-family: 'Archivo Black', sans-serif; font-size: 1.15rem; color: var(--white); margin-bottom: 0.75rem; line-height: 1.3; }
+  .project-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
+  .view-more-container { margin-top: 3rem; display: flex; justify-content: center; }
 
-  /* SKILLS */
-  .skills-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1px; border: 1px solid var(--line-faint);
-  }
-  .skill-group {
-    padding: 2rem; background: var(--bg2);
-    border-right: 1px solid var(--line-faint); border-bottom: 1px solid var(--line-faint);
-  }
-  .skill-group h4 {
-    font-family: 'Azeret Mono', monospace; font-size: 0.68rem;
-    color: var(--amber); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 1.2rem;
-  }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px; border: 1px solid var(--line-faint); }
+  .skill-group { padding: 2rem; background: var(--bg2); border-right: 1px solid var(--line-faint); border-bottom: 1px solid var(--line-faint); }
+  .skill-group h4 { font-family: 'Azeret Mono', monospace; font-size: 0.68rem; color: var(--amber); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 1.2rem; }
   .skill-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-  .skill-list li {
-    font-size: 0.88rem; color: var(--text-muted);
-    display: flex; align-items: center; gap: 0.5rem;
-  }
+  .skill-list li { font-size: 0.88rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem; }
 
-  /* TIMELINE */
   .timeline { position: relative; padding-left: 2rem; }
-  .timeline::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 1px; background: var(--line);
-  }
-  .timeline-item {
-    position: relative; padding: 0 0 3rem 2rem;
-  }
-  .timeline-item::before {
-    content: ''; position: absolute; left: -2rem; top: 0.35rem;
-    width: 7px; height: 7px; background: var(--amber); transform: rotate(45deg);
-  }
-  .timeline-date {
-    font-family: 'Azeret Mono', monospace; font-size: 0.68rem;
-    color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.4rem;
-  }
-  .timeline-company {
-    font-family: 'Archivo Black', sans-serif; font-size: 1.1rem;
-    color: var(--white); margin-bottom: 0.25rem;
-  }
-  .timeline-role { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--line); }
+  .timeline-item { position: relative; padding: 0 0 3rem 2rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -2rem; top: 0.35rem; width: 7px; height: 7px; background: var(--amber); transform: rotate(45deg); }
+  .timeline-date { font-family: 'Azeret Mono', monospace; font-size: 0.68rem; color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .timeline-company { font-family: 'Archivo Black', sans-serif; font-size: 1.1rem; color: var(--white); margin-bottom: 0.25rem; }
+  .timeline-role { font-size: 0.85rem; color: var(--amber); margin-bottom: 0.75rem; }
+  .timeline-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
 
-  /* CONTACT & FOOTER */
-  #contact { padding: 5rem 10vw; border-top: 1px solid var(--line-faint); }
-  footer { padding: 2rem 10vw; border-top: 1px solid var(--line-faint); display: flex; justify-content: space-between; align-items: center; }
+  #contact { padding: 5rem 10vw; border-top: 1px solid var(--line-faint); position: relative; z-index: 1; }
+  footer { padding: 2rem 10vw; border-top: 1px solid var(--line-faint); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; flex-wrap: wrap; gap: 1rem; }
   footer p { font-family: 'Azeret Mono', monospace; font-size: 0.65rem; color: var(--text-dim); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { color: var(--amber); text-decoration: none; font-family: 'Azeret Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; }
 
+  .detail-header { padding-top: 8rem; padding-bottom: 4rem; min-height: 100vh; }
+  .back-btn { font-family: 'Azeret Mono', monospace; color: var(--amber); text-decoration: none; cursor: pointer; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.5rem; }
+  .back-btn:hover { color: var(--white); }
+  .detail-gallery img { width: 100%; max-width: 900px; border-radius: 4px; margin-bottom: 2rem; border: 1px solid var(--line-faint); display: block; }
+  
   @media (max-width: 860px) {
-    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links {
+      position: fixed; top: 0; right: -100%; height: 100vh; width: 280px;
+      background: rgba(11,15,20,0.98); backdrop-filter: blur(15px);
+      flex-direction: column; padding: 6rem 2rem; transition: right 0.3s ease;
+      border-left: 1px solid var(--line-faint);
+    }
+    .nav-links.active { right: 0; }
     #hero { padding: 8rem 6vw 4rem; }
     .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
     .hero-photo-wrap { width: 180px; height: 180px; order: -1; }
+    .hero-photo { width: 180px; height: 180px; }
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <span class="nav-logo">Noah Yong</span>
+  <span class="nav-logo" onclick="showHome()">Noah Yong</span>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
   <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a onclick="showHome(); closeMenu(); setTimeout(() => window.location.hash='projects', 50)">Projects</a></li>
+    <li><a onclick="showHome(); closeMenu(); setTimeout(() => window.location.hash='skills', 50)">Skills</a></li>
+    <li><a onclick="showHome(); closeMenu(); setTimeout(() => window.location.hash='experience', 50)">Experience</a></li>
+    <li><a onclick="closeMenu(); window.location.hash='contact'">Contact</a></li>
   </ul>
 </nav>
 
-<section id="hero">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <p class="hero-eyebrow">Mechanical Engineering · University of Waterloo</p>
-      <h1>Noah<br><span>Yong</span></h1>
-      <p class="hero-desc">
-        First-year Mechanical Engineering student at UWaterloo with hands-on experience in machining,
-        rapid prototyping, and CAD. Currently seeking Fall 2026 co-op in aerospace, mechanical design, or manufacturing.
-      </p>
-      <div class="hero-stats">
-        <div class="stat-block"><span class="stat-num">4</span><span class="stat-label">Featured Projects</span></div>
-        <div class="stat-block"><span class="stat-num">1B</span><span class="stat-label">Term</span></div>
-        <div class="stat-block"><span class="stat-num">CSWA</span><span class="stat-label">Certified</span></div>
-        <div class="stat-block"><span class="stat-num">2030</span><span class="stat-label">Grad Year</span></div>
+<div id="home-view" class="view-section">
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Mechanical Engineering · University of Waterloo</p>
+        <h1>Noah<br><span>Yong</span></h1>
+        <p class="hero-desc">
+          First-year Mechanical Engineering student at UWaterloo with hands-on experience in machining,
+          rapid prototyping, and CAD. Currently seeking Fall 2026 co-op roles in aerospace, mechanical design, and manufacturing.
+        </p>
+        <div class="hero-stats">
+          <div class="stat-block"><span class="stat-num">6</span><span class="stat-label">Projects</span></div>
+          <div class="stat-block"><span class="stat-num">1B</span><span class="stat-label">Term</span></div>
+          <div class="stat-block"><span class="stat-num">CSWA</span><span class="stat-label">Certified</span></div>
+          <div class="stat-block"><span class="stat-num">2030</span><span class="stat-label">Grad Year</span></div>
+        </div>
+        <div class="hero-cta">
+          <a onclick="document.getElementById('projects').scrollIntoView()" class="btn-primary">View Projects</a>
+          <a href="https://linkedin.com/in/noah-yong" target="_blank" class="btn-ghost">LinkedIn ↗</a>
+        </div>
       </div>
-      <div class="hero-cta">
-        <a href="#projects" class="btn-primary">View Projects</a>
-        <a href="https://linkedin.com/in/noah-yong" target="_blank" class="btn-ghost">LinkedIn ↗</a>
+      <div class="hero-photo-wrap">
+        <img src="profile.jpg" class="hero-photo" alt="Noah Yong">
       </div>
     </div>
-    <div class="hero-photo-wrap">
-      <img src="YOUR_PHOTO_URL_HERE" class="hero-photo" alt="Noah Yong">
-    </div>
+  </section>
+
+  <div class="section-outer">
+    <section id="projects" class="section-wrap">
+      <div class="section-header"><h2>Selected <span>Projects</span></h2></div>
+      <div id="home-projects-container" class="projects-grid"></div>
+      <div class="view-more-container">
+          <a onclick="showWorks()" class="btn-ghost">View all projects &rarr;</a>
+      </div>
+    </section>
+
+    <section id="skills" class="section-wrap">
+      <div class="section-header"><h2>Technical <span>Toolkit</span></h2></div>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h4>Design & Simulation</h4>
+          <ul class="skill-list">
+            <li>SolidWorks (CSWA)</li>
+            <li>AutoCAD & Revit</li>
+            <li>MATLAB</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h4>Fabrication</h4>
+          <ul class="skill-list">
+            <li>Manual Mill & Lathe</li>
+            <li>3D Printing (FDM)</li>
+            <li>Water Jet Cutting</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section-wrap">
+      <div class="section-header"><h2>Professional <span>Path</span></h2></div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <p class="timeline-date">Jan 2026 — Apr 2026</p>
+          <p class="timeline-company">HyJoule Energy Systems, Inc.</p>
+          <p class="timeline-role">Co-op Student</p>
+        </div>
+        <div class="timeline-item">
+          <p class="timeline-date">May 2025 — Aug 2025</p>
+          <p class="timeline-company">MCW Group of Companies</p>
+          <p class="timeline-role">Mechanical Engineering Intern</p>
+        </div>
+        <div class="timeline-item">
+          <p class="timeline-date">2022 — 2024</p>
+          <p class="timeline-company">Swim Academy</p>
+          <p class="timeline-role">Swim Academy Coach</p>
+          <p class="timeline-desc">Planned and coached technique-focused training sessions. Communicated progress to swimmers and parents through verbal feedback and written reports.</p>
+        </div>
+      </div>
+    </section>
   </div>
-</section>
+</div>
 
-<div class="section-outer">
-  <section id="projects" class="section-wrap">
-    <div class="section-header"><h2>Selected <span>Projects</span></h2></div>
-    <div id="projects-container" class="projects-grid"></div>
-    <div class="view-more-container">
-        <a href="https://n4yong.wixsite.com/engineering-design-a" target="_blank" class="btn-ghost">View more projects ↗</a>
-    </div>
-  </section>
+<div id="works-view" class="view-section hidden">
+  <div class="section-outer" style="padding-top: 8rem; padding-bottom: 6rem; min-height: 100vh;">
+    <a onclick="showHome()" class="back-btn">&larr; Back to Home</a>
+    <h2 style="margin-bottom: 3rem;">All <span>Projects</span></h2>
+    <div id="all-projects-container" class="projects-grid"></div>
+  </div>
+</div>
 
-  <section id="skills" class="section-wrap">
-    <div class="section-header"><h2>Technical <span>Toolkit</span></h2></div>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <h4>Design & Simulation</h4>
-        <ul class="skill-list">
-          <li>SolidWorks (CSWA)</li>
-          <li>AutoCAD & Revit</li>
-          <li>MATLAB</li>
-        </ul>
-      </div>
-      <div class="skill-group">
-        <h4>Fabrication</h4>
-        <ul class="skill-list">
-          <li>Manual Mill & Lathe</li>
-          <li>3D Printing (FDM)</li>
-          <li>Water Jet Cutting</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="experience" class="section-wrap">
-    <div class="section-header"><h2>Professional <span>Path</span></h2></div>
-    <div class="timeline">
-      <div class="timeline-item">
-        <p class="timeline-date">Jan 2026 — Apr 2026</p>
-        <p class="timeline-company">HyJoule Energy Systems, Inc.</p>
-        <p class="timeline-role">Co-op Student</p>
-      </div>
-      <div class="timeline-item">
-        <p class="timeline-date">May 2025 — Aug 2025</p>
-        <p class="timeline-company">MCW Group of Companies</p>
-        <p class="timeline-role">Mechanical Engineering Intern</p>
-      </div>
-    </div>
-  </section>
+<div id="detail-view" class="view-section hidden">
+  <div class="section-outer detail-header">
+    <a onclick="showWorks()" class="back-btn">&larr; Back to All Projects</a>
+    <h1 id="detail-title"></h1>
+    <span id="detail-tags" class="project-tag" style="font-size: 0.8rem; margin-bottom: 1.5rem;"></span>
+    <p id="detail-desc" style="max-width: 800px; font-size: 1.05rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 3rem; white-space: pre-wrap;"></p>
+    <div id="detail-gallery" class="detail-gallery"></div>
+  </div>
 </div>
 
 <section id="contact">
-  <h2>Let's build<br><span>something.</span></h2>
-  <div class="contact-links" style="margin-top: 2rem;">
-    <a href="mailto:n4yong@uwaterloo.ca" class="btn-primary">n4yong@uwaterloo.ca</a>
+  <div class="contact-inner">
+    <h2>Let's build<br><span>something.</span></h2>
+    <p style="color: var(--text-muted); max-width: 480px; font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem; margin-top: 1rem;">
+      Looking for Fall 2026 co-op roles in aerospace, mechanical design, and manufacturing. Happy to connect about your team's work even if the timing isn't perfect.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:n4yong@uwaterloo.ca" class="btn-primary">n4yong@uwaterloo.ca</a>
+    </div>
   </div>
 </section>
 
 <footer>
-  <p>Noah Yong · Waterloo Engineering · 2030</p>
+  <p>Noah Yong · Mechanical Engineering · University of Waterloo · 2030</p>
+  <div class="footer-links">
+    <a href="https://linkedin.com/in/noah-yong" target="_blank">LinkedIn</a>
+    <a href="mailto:n4yong@uwaterloo.ca">Email</a>
+  </div>
 </footer>
 
 <script>
-  const projects = [
-    { title: 'TT Motor Dynamometer', tags: 'Design • MATLAB', summary: 'System to calculate stall torque using weight lifting rig.' },
-    { title: 'Waterloo Rocketry', tags: 'Propulsion • SolidWorks', summary: 'Designed propulsion organization components for water jet cutting.' },
-    { title: 'Model Rocketry', tags: 'Aerospace • OpenRocket', summary: 'Flight simulation and physical launch of A8-0 powered rocket.' },
-    { title: 'Digitized Mechanical Schedules', tags: 'Data • Bluebeam', summary: 'Automated data extraction for building development projects.' }
-  ];
+  function toggleMenu() { document.querySelector('.nav-links').classList.toggle('active'); }
+  function closeMenu() { document.querySelector('.nav-links').classList.remove('active'); }
 
-  const container = document.getElementById('projects-container');
-  projects.slice(0, 4).forEach(p => {
-    container.innerHTML += `
-      <div class="project-card">
+  const projectDatabase = {
+    'tt-motor': {
+      title: 'TT Motor Dynamometer',
+      tags: 'Mechanical Design • MATLAB • Testing',
+      summary: 'Custom dynamometer built to find stall torque of a TT motor using weight load systems.',
+      description: 'The team was provided with metal beams, plastic connectors, and a TT motor. We built a system where a string draped over a wheel powered by the motor lifted a basket of weights. This allowed us to calculate performance rigour and solve design problems through diverse team input.',
+      images: ['assets/tt-motor-top.jpg', 'assets/tt-motor-side.jpg']
+    },
+    'waterloo-rocketry': {
+      title: 'Waterloo Rocketry',
+      tags: 'Propulsion • SolidWorks • Water Jet',
+      summary: 'Propulsion subteam member focusing on design for manufacturing.',
+      description: 'Designed drawer dividers and fittings for propulsion organization. Optimized the design for manufacturing using sheet metal and water jet cutting, reducing CAD time and increasing structural robustness.',
+      images: ['assets/rocketry-cad.png', 'assets/rocketry-real.jpg']
+    },
+    'cad-collection': {
+      title: 'Coursework CAD Collection',
+      tags: 'SolidWorks • AutoCAD • GD&T',
+      summary: 'Engineering drawings and assembly models for mechanical parts.',
+      description: 'A series of high-precision models including a keychain assembly, brake balance clevis, and trunnion parts. Focused on industry standards for tolerancing and manufacturing drawings.',
+      images: ['assets/cad-keychain.png']
+    },
+    'model-rocket': {
+      title: 'Model Rocket Competition',
+      tags: 'Aerospace • Simulation • OpenRocket',
+      summary: 'Design and launch of a plywood rocket on an A8-0 engine.',
+      description: 'Simulated flight performance in OpenRocket before physical fabrication. The project served as a critical lesson in how minor fabrication errors (fin geometry) impact flight stability.',
+      images: ['assets/rocket-model.jpg']
+    },
+    'toy-cannon': {
+      title: 'Toy Cannon Project',
+      tags: 'Prototyping • Rapid Prototyping',
+      summary: 'Final rough prototype for a mechanical toy project.',
+      description: 'Focused on the iterative prototyping process, moving from initial sketches to a functional rough model to test mechanical release and firing constraints.',
+      images: ['assets/cannon-proto.jpg']
+    },
+    'arduino-case': {
+      title: 'Printed Arduino Case',
+      tags: '3D Printing • Personal Project • SolidWorks',
+      summary: 'Custom enclosure for electronics organization.',
+      description: 'Designed in SolidWorks to learn specific CAD shortcuts and shop tolerances, then realized through FDM 3D printing.',
+      images: ['assets/arduino-case.jpg']
+    }
+  };
+
+  const homeContainer = document.getElementById('home-projects-container');
+  const allContainer = document.getElementById('all-projects-container');
+  
+  const projectKeys = Object.keys(projectDatabase);
+  
+  projectKeys.forEach((key, index) => {
+    const p = projectDatabase[key];
+    const cardHTML = `
+      <div class="project-card" onclick="showProject('${key}')">
         <span class="project-tag">${p.tags}</span>
         <h3>${p.title}</h3>
         <p>${p.summary}</p>
       </div>`;
+      
+    allContainer.innerHTML += cardHTML;
+    if (index < 4) homeContainer.innerHTML += cardHTML;
   });
+
+  function showHome() {
+    document.getElementById('home-view').classList.remove('hidden');
+    document.getElementById('works-view').classList.add('hidden');
+    document.getElementById('detail-view').classList.add('hidden');
+    window.scrollTo(0,0);
+  }
+
+  function showWorks() {
+    document.getElementById('home-view').classList.add('hidden');
+    document.getElementById('works-view').classList.remove('hidden');
+    document.getElementById('detail-view').classList.add('hidden');
+    window.scrollTo(0,0);
+  }
+
+  function showProject(id) {
+    const p = projectDatabase[id];
+    document.getElementById('detail-title').innerText = p.title;
+    document.getElementById('detail-tags').innerText = p.tags;
+    document.getElementById('detail-description').innerText = p.description;
+    
+    const gallery = document.getElementById('detail-gallery');
+    gallery.innerHTML = p.images.map(src => `<img src="${src}" alt="${p.title}" onerror="this.style.display='none'">`).join('');
+
+    document.getElementById('home-view').classList.add('hidden');
+    document.getElementById('works-view').classList.add('hidden');
+    document.getElementById('detail-view').classList.remove('hidden');
+    window.scrollTo(0,0);
+  }
 </script>
 </body>
 </html>
