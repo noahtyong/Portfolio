@@ -101,6 +101,131 @@
   </ul>
 </nav>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noah Yong — MechE @ UWaterloo</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='12' fill='%234A8FD4'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Azeret+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --amber: #4A8FD4;
+    --amber-dim: #2a6099;
+    --bg: #0b0f14;
+    --bg2: #111720;
+    --line: rgba(74,143,212,0.2);
+    --line-faint: rgba(255,255,255,0.05);
+    --text: #e8e0d0;
+    --text-muted: #7a8394;
+    --white: #f0ece4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-weight: 300; line-height: 1.6; overflow-x: hidden;
+  }
+
+  /* Layout Utilities */
+  .section-outer { padding: 0 8vw; }
+  .section-wrap { padding: 8rem 0; border-top: 1px solid var(--line-faint); }
+  .hidden { display: none !important; }
+
+  /* Navigation */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 1.2rem 6vw; display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--line-faint); background: rgba(11,15,20,0.88); backdrop-filter: blur(12px);
+  }
+  .nav-logo { font-family: 'Azeret Mono', monospace; font-size: 0.75rem; color: var(--amber); letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: 'Azeret Mono', monospace; font-size: 0.72rem; color: var(--text-muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; cursor: pointer; }
+  .nav-links a:hover { color: var(--amber); }
+
+  /* Hero Section */
+  #hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 8rem 10vw 4rem; }
+  .hero-inner { display: grid; grid-template-columns: 1fr auto; gap: 5rem; align-items: center; width: 100%; }
+  h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(3.5rem, 7vw, 7rem); line-height: 0.95; color: var(--white); margin-bottom: 1.5rem; }
+  h1 span { color: transparent; -webkit-text-stroke: 1px var(--amber); }
+  .hero-desc { max-width: 500px; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+  .hero-photo-wrap { position: relative; width: 280px; height: 280px; flex-shrink: 0; }
+  .hero-photo-wrap::before { content: ''; position: absolute; inset: -8px; border: 1px solid var(--line); transform: rotate(3deg); }
+  .hero-photo { width: 280px; height: 280px; object-fit: cover; object-position: center top; display: block; filter: grayscale(15%); position: relative; z-index: 1; }
+
+  /* Button Alignment Fix */
+  .hero-cta { display: flex; align-items: stretch; gap: 12px; }
+  .btn-flex {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 2.2rem;
+    text-decoration: none; font-family: 'Azeret Mono', monospace; font-size: 0.75rem; transition: 0.2s ease-in-out;
+    box-sizing: border-box; cursor: pointer; border-radius: 0;
+  }
+  .btn-primary { background: var(--amber); color: #fff; border: 1px solid var(--amber); }
+  .btn-primary:hover { background: var(--amber-dim); border-color: var(--amber-dim); }
+  .btn-ghost { border: 1px solid var(--line); color: var(--text-muted); }
+  .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+
+  /* Grid Stats (From Screenshot) */
+  .screenshot-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--line-faint);
+    border-left: 1px solid var(--line-faint);
+    margin-bottom: 3rem;
+  }
+  .stat-box {
+    padding: 3rem 2rem;
+    border-right: 1px solid var(--line-faint);
+    border-bottom: 1px solid var(--line-faint);
+  }
+  .stat-box .value {
+    display: block;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.5rem;
+    color: var(--amber);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-box .label {
+    font-family: 'Azeret Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
+  /* Skills & Experience */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; }
+  .skill-category h3 { color: var(--amber); font-family: 'Azeret Mono', monospace; font-size: 0.8rem; margin-bottom: 1.2rem; text-transform: uppercase; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; }
+  .skill-category p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.8; }
+
+  /* Footer Icons */
+  .footer-icons { display: flex; gap: 1.5rem; align-items: center; }
+  .footer-icons a { color: var(--text-muted); transition: 0.2s; }
+  .footer-icons a:hover { color: var(--amber); }
+
+  @media (max-width: 860px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .hero-photo-wrap { margin: 0 auto; order: -1; }
+    .nav-links { display: none; }
+    .screenshot-stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo" onclick="showHome()">Noah Yong</span>
+  <ul class="nav-links">
+    <li><a onclick="showHome()">Home</a></li>
+    <li><a onclick="showWorks()">Works</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
 <div id="home-view">
   <section id="hero">
     <div class="hero-inner">
@@ -108,6 +233,157 @@
         <p style="font-family: 'Azeret Mono', monospace; color: var(--amber); font-size: 0.7rem; margin-bottom: 1rem; letter-spacing: 0.1em;">MECHANICAL ENGINEERING · UWATERLOO</p>
         <h1>Noah<br><span>Yong</span></h1>
         <p class="hero-desc">Mechanical Engineering student at the University of Waterloo. Specialized in CAD design, manufacturing processes, and technical data automation.</p>
+        <div class="hero-cta">
+          <a onclick="showWorks()" class="btn-primary btn-flex">View Portfolio</a>
+          <a href="https://linkedin.com/in/noah-yong" target="_blank" class="btn-ghost btn-flex">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <img src="portrait1.JPG" class="hero-photo" alt="Noah Yong">
+      </div>
+    </div>
+  </section>
+
+  <div class="section-outer">
+    <section id="stats" class="section-wrap">
+      <div class="screenshot-stats">
+        <div class="stat-box"><span class="value">6</span><span class="label">Projects</span></div>
+        <div class="stat-box"><span class="value">1B</span><span class="label">Term</span></div>
+        <div class="stat-box"><span class="value">CSWA</span><span class="label">Certified</span></div>
+        <div class="stat-box"><span class="value">2030</span><span class="label">Grad Year</span></div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>Athletic Performance</h3>
+          <p>Intermediate-Advanced Carving • Ice Coast Specialist<br>Ironman Triathlon Athlete • Draft Zone Optimization</p>
+        </div>
+        <div class="skill-category">
+          <h3>Physical Profile</h3>
+          <p>Height: 5'11"<br>Mass: 155 LBS</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section-wrap">
+      <h2>Technical <span>Skills</span></h2>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>Design & Simulation</h3>
+          <p>SolidWorks (CSWA)<br>AutoCAD<br>Revit<br>MATLAB</p>
+        </div>
+        <div class="skill-category">
+          <h3>Manufacturing</h3>
+          <p>Manual Mill & Lathe<br>3D Printing (FDM)<br>Water Jet Cutting<br>Rapid Prototyping</p>
+        </div>
+        <div class="skill-category">
+          <h3>Data & Systems</h3>
+          <p>Bluebeam Revu<br>Microsoft Excel<br>Google Apps Script<br>Technical Data Extraction</p>
+        </div>
+        <div class="skill-category">
+          <h3>Professional</h3>
+          <p>Technical Documentation<br>Project Coordination<br>Instructional Leadership<br>Stakeholder Feedback</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section-wrap">
+      <h2>Experience</h2>
+      <div style="display: grid; gap: 3rem;">
+        <div>
+          <p style="font-family: 'Azeret Mono'; font-size: 0.7rem; color: var(--amber); margin-bottom: 0.5rem;">JAN 2026 — PRESENT</p>
+          <h3 style="font-family: 'Archivo Black'; font-size: 1.2rem;">HyJoule Energy Systems, Inc.</h3>
+          <p style="color: var(--text-muted);">First-Year Co-op Student</p>
+        </div>
+        <div>
+          <p style="font-family: 'Azeret Mono'; font-size: 0.7rem; color: var(--amber); margin-bottom: 0.5rem;">MAY 2025 — AUG 2025</p>
+          <h3 style="font-family: 'Archivo Black'; font-size: 1.2rem;">MCW Group of Companies</h3>
+          <p style="color: var(--text-muted);">Mechanical Engineering Intern</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="works-view" class="hidden">
+  <div class="section-outer" style="padding-top: 8rem; min-height: 100vh;">
+    <a onclick="showHome()" style="cursor:pointer; color: var(--amber); font-family: 'Azeret Mono'; font-size: 0.7rem;">&larr; BACK TO HOME</a>
+    <h2 style="margin-top: 2rem;">Full <span>Portfolio</span></h2>
+    <div id="all-projects-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5px;"></div>
+  </div>
+</div>
+
+<section id="contact" class="section-wrap">
+  <div class="section-outer">
+    <h2>Connect <span>With Me</span></h2>
+    <p style="color: var(--text-muted); max-width: 550px;">Currently seeking Fall 2026 co-op opportunities.</p>
+    <div class="contact-links" style="display: flex; gap: 1rem; margin-top: 2.5rem;">
+      <a href="mailto:n4yong@uwaterloo.ca" class="btn-primary btn-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        Email Me
+      </a>
+      <a href="https://linkedin.com/in/noah-yong" target="_blank" class="btn-ghost btn-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="section-outer" style="display: flex; justify-content: space-between; width: 100%;">
+    <p style="color: var(--text-muted); font-size: 0.75rem;">© 2026 Noah Yong · Waterloo Engineering</p>
+    <div class="footer-icons">
+      <a href="mailto:n4yong@uwaterloo.ca">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      </a>
+      <a href="https://linkedin.com/in/noah-yong" target="_blank">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function showHome() { 
+    document.getElementById('home-view').classList.remove('hidden'); 
+    document.getElementById('works-view').classList.add('hidden'); 
+    window.scrollTo(0,0);
+  }
+  function showWorks() { 
+    document.getElementById('home-view').classList.add('hidden'); 
+    document.getElementById('works-view').classList.remove('hidden'); 
+    window.scrollTo(0,0);
+  }
+
+  const projects = [
+    { title: 'TT Motor Dynamometer', tags: 'Design • MATLAB', summary: 'System for measuring stall torque via weight loading.' },
+    { title: 'Waterloo Rocketry', tags: 'Propulsion • SolidWorks', summary: 'Optimized storage components for water jet fabrication.' },
+    { title: 'Data Digitization', tags: 'Data • Bluebeam', summary: 'Automated extraction of mechanical schedules.' }
+  ];
+
+  const container = document.getElementById('all-projects-container');
+  projects.forEach(p => {
+    container.innerHTML += `
+      <div style="background: var(--bg2); border: 1px solid var(--line-faint); padding: 2rem;">
+        <span style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--amber);">${p.tags}</span>
+        <h3 style="margin: 0.5rem 0;">${p.title}</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">${p.summary}</p>
+      </div>`;
+  });
+</script>
+</body>
+</html>
+  <!--<div id="home-view">
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p style="font-family: 'Azeret Mono', monospace; color: var(--amber); font-size: 0.7rem; margin-bottom: 1rem; letter-spacing: 0.1em;">MECHANICAL ENGINEERING · UWATERLOO</p>
+        <h1>Noah<br><span>Yong</span></h1>
+        <p class="hero-desc">Mechanical Engineering student at UWaterloo with hands-on experience in machining, rapid prototyping, and CAD. Seeking Fall 2026 co-op in aerospace, mechanical design, or manufacturing.</p>
         <div class="hero-cta">
           <a onclick="showWorks()" class="btn-primary btn-flex" style="cursor:pointer">View Portfolio</a>
           <a href="https://linkedin.com/in/noah-yong" target="_blank" class="btn-ghost btn-flex">
