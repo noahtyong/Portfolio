@@ -34,7 +34,7 @@
   }
 
   .section-outer { padding: 0 8vw; }
-  .section-wrap { padding: 6rem 0; border-top: 1px solid var(--line-faint); }
+  .section-wrap { padding: 5rem 0; border-top: 1px solid var(--line-faint); }
   .hidden { display: none !important; }
 
   /* Navigation */
@@ -49,11 +49,11 @@
   .nav-links a:hover { color: var(--amber); }
 
   /* Hero Section */
-  #hero { position: relative; min-height: 75vh; display: flex; align-items: center; padding: 8rem 10vw 0; }
+  #hero { position: relative; min-height: 70vh; display: flex; align-items: center; padding: 8rem 10vw 0; }
   .hero-inner { display: grid; grid-template-columns: 1fr auto; gap: 5rem; align-items: center; width: 100%; }
   h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(3.5rem, 7vw, 7rem); line-height: 0.95; color: var(--white); margin-bottom: 1.5rem; }
   h1 span { color: transparent; -webkit-text-stroke: 1px var(--amber); }
-  .hero-desc { max-width: 500px; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+  .hero-desc { max-width: 550px; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2.5rem; }
   
   .hero-photo-wrap { position: relative; width: 280px; height: 280px; flex-shrink: 0; }
   .hero-photo-wrap::before { content: ''; position: absolute; inset: -8px; border: 1px solid var(--line); transform: rotate(3deg); }
@@ -64,11 +64,12 @@
   .btn-flex {
     display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 48px; padding: 0 2.2rem;
     text-decoration: none; font-family: 'Azeret Mono', monospace; font-size: 0.75rem; transition: 0.2s ease-in-out;
-    box-sizing: border-box; cursor: pointer; border-radius: 0;
+    box-sizing: border-box; cursor: pointer; border-radius: 0; border: 1px solid var(--line);
   }
-  .btn-primary { background: var(--amber); color: #fff; border: 1px solid var(--amber); }
+  .btn-primary { background: var(--amber); color: #fff; border-color: var(--amber); }
   .btn-primary:hover { background: var(--amber-dim); }
-  .btn-ghost { border: 1px solid var(--line); color: var(--text-muted); background: rgba(11,15,20,0.4); }
+  .btn-ghost { color: var(--text-muted); background: rgba(11,15,20,0.4); }
+  .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
 
   /* Stats Grid */
   .screenshot-stats {
@@ -80,6 +81,11 @@
   .stat-box .value { display: block; font-family: 'Archivo Black', sans-serif; font-size: 2.5rem; color: var(--amber); line-height: 1; margin-bottom: 0.5rem; }
   .stat-box .label { font-family: 'Azeret Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.2em; }
 
+  /* Skills Grid */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; }
+  .skill-category h3 { color: var(--amber); font-family: 'Azeret Mono', monospace; font-size: 0.8rem; margin-bottom: 1.2rem; text-transform: uppercase; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; }
+  .skill-category p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.8; }
+
   /* Experience Timeline */
   .timeline { position: relative; padding-left: 2rem; border-left: 1px solid var(--line); margin-top: 2rem; }
   .timeline-item { position: relative; padding-bottom: 4rem; }
@@ -87,6 +93,11 @@
   .timeline-date { font-family: 'Azeret Mono', monospace; font-size: 0.7rem; color: var(--amber); margin-bottom: 0.5rem; }
   .timeline-title { font-family: 'Archivo Black', sans-serif; font-size: 1.25rem; color: var(--white); margin-bottom: 0.25rem; }
   .timeline-sub { color: var(--text-muted); font-size: 0.9rem; }
+
+  /* Contact & Footer */
+  .contact-wrap { text-align: center; max-width: 600px; margin: 0 auto; }
+  .contact-title { font-family: 'Archivo Black', sans-serif; font-size: 3rem; color: var(--white); margin-bottom: 1rem; }
+  footer { padding: 4rem 8vw; border-top: 1px solid var(--line-faint); }
 
   @media (max-width: 860px) {
     .hero-inner { grid-template-columns: 1fr; text-align: center; }
@@ -103,6 +114,7 @@
     <li><a onclick="showHome()">Home</a></li>
     <li><a onclick="showWorks()">Portfolio</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
@@ -125,12 +137,30 @@
   </section>
 
   <div class="section-outer">
-    <section id="stats" class="section-wrap" style="padding-top: 2rem;">
+    <section id="stats" class="section-wrap" style="padding-top: 1rem;">
       <div class="screenshot-stats">
         <div class="stat-box"><span class="value">6</span><span class="label">Major Projects</span></div>
         <div class="stat-box"><span class="value">1B</span><span class="label">Academic Term</span></div>
         <div class="stat-box"><span class="value">CSWA</span><span class="label">Certified</span></div>
         <div class="stat-box"><span class="value">2030</span><span class="label">Grad Year</span></div>
+      </div>
+    </section>
+
+    <section id="teaser" class="section-wrap">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem;">
+        <h2>Selected <span>Works</span></h2>
+        <a onclick="showWorks()" style="cursor: pointer; font-family: 'Azeret Mono'; font-size: 0.7rem; color: var(--amber);">VIEW ALL PROJECTS &rarr;</a>
+      </div>
+      <div id="teaser-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5px; background: var(--line-faint);"></div>
+    </section>
+
+    <section id="skills" class="section-wrap">
+      <h2>Technical <span>Skills</span></h2>
+      <div class="skills-grid">
+        <div class="skill-category"><h3>Design & Simulation</h3><p>SolidWorks (CSWA)<br>AutoCAD<br>Revit<br>MATLAB</p></div>
+        <div class="skill-category"><h3>Manufacturing</h3><p>Manual Mill & Lathe<br>3D Printing (FDM)<br>Water Jet Cutting<br>Rapid Prototyping</p></div>
+        <div class="skill-category"><h3>Data & Systems</h3><p>Bluebeam Revu<br>Microsoft Excel<br>Google Apps Script<br>Technical Documentation</p></div>
+        <div class="skill-category"><h3>Professional</h3><p>Project Coordination<br>Mechanical Schedules<br>Stakeholder Relations<br>Instructional Leadership</p></div>
       </div>
     </section>
 
@@ -149,6 +179,17 @@
         </div>
       </div>
     </section>
+
+    <section id="contact" class="section-wrap">
+      <div class="contact-wrap">
+        <h2 class="contact-title">Let's <span>Connect.</span></h2>
+        <p style="color: var(--text-muted); margin-bottom: 2.5rem;">Open to technical discussions regarding co-op opportunities or engineering projects.</p>
+        <div style="display: flex; gap: 15px; justify-content: center;">
+          <a href="mailto:n4yong@uwaterloo.ca" class="btn-primary btn-flex">Email Me</a>
+          <a href="https://linkedin.com/in/noah-yong" target="_blank" class="btn-ghost btn-flex">LinkedIn</a>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
 
@@ -158,6 +199,13 @@
     <div id="all-projects-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;"></div>
   </div>
 </div>
+
+<footer>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <p style="color: var(--text-muted); font-size: 0.75rem;">© 2026 Noah Yong · MechEng @ UWaterloo</p>
+    <p style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--line);">LOCAL_COORD: 43.5183° N, 79.8774° W</p>
+  </div>
+</footer>
 
 <script>
   function showHome() { 
@@ -182,9 +230,19 @@
     { title: 'Printed Arduino Case', tags: '3D Printing • Prototyping', summary: 'Custom enclosure designed for hardware protection and thermal management.' }
   ];
 
-  const container = document.getElementById('all-projects-container');
+  const teaserContainer = document.getElementById('teaser-container');
+  projects.slice(0, 3).forEach(p => {
+    teaserContainer.innerHTML += `
+      <div style="background: var(--bg2); border: 1px solid var(--line-faint); padding: 2.5rem;">
+        <span style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--amber);">${p.tags}</span>
+        <h3 style="margin: 0.8rem 0; font-family: 'Archivo Black'; font-size: 1.2rem;">${p.title}</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">${p.summary}</p>
+      </div>`;
+  });
+
+  const allContainer = document.getElementById('all-projects-container');
   projects.forEach(p => {
-    container.innerHTML += `
+    allContainer.innerHTML += `
       <div style="background: var(--bg2); border: 1px solid var(--line-faint); padding: 2.5rem;">
         <span style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--amber);">${p.tags}</span>
         <h3 style="margin: 0.8rem 0; font-family: 'Archivo Black'; font-size: 1.4rem;">${p.title}</h3>
