@@ -48,24 +48,23 @@
   .nav-links a { font-family: 'Azeret Mono', monospace; font-size: 0.72rem; color: var(--text-muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; cursor: pointer; }
   .nav-links a:hover { color: var(--amber); }
 
-  /* Buttons & Cards */
+  /* Buttons */
   .btn-flex {
     display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 48px; padding: 0 2.2rem;
     text-decoration: none; font-family: 'Azeret Mono', monospace; font-size: 0.75rem; transition: 0.2s ease-in-out;
     box-sizing: border-box; cursor: pointer; border-radius: 0; border: 1px solid var(--line);
   }
   .btn-primary { background: var(--amber); color: #fff; border-color: var(--amber); }
+  .btn-primary:hover { background: var(--amber-dim); }
   .btn-ghost { color: var(--text-muted); background: rgba(11,15,20,0.4); }
-  
+  .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+
+  /* Project Cards */
   .project-card { 
     background: var(--bg2); border: 1px solid var(--line-faint); padding: 2.5rem; 
     cursor: pointer; transition: 0.3s; position: relative;
   }
   .project-card:hover { border-color: var(--amber); transform: translateY(-5px); }
-
-  /* Footer */
-  footer { padding: 4rem 8vw; border-top: 1px solid var(--line-faint); margin-top: 4rem; }
-  .social-icon { width: 18px; height: 18px; fill: currentColor; }
 
   /* Hero Section */
   #hero { position: relative; min-height: 70vh; display: flex; align-items: center; padding: 8rem 10vw 0; }
@@ -73,7 +72,22 @@
   h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(3.5rem, 7vw, 7rem); line-height: 0.95; color: var(--white); margin-bottom: 1.5rem; }
   h1 span { color: transparent; -webkit-text-stroke: 1px var(--amber); }
   .hero-photo-wrap { position: relative; width: 280px; height: 280px; flex-shrink: 0; }
+  .hero-photo-wrap::before { content: ''; position: absolute; inset: -8px; border: 1px solid var(--line); transform: rotate(3deg); }
   .hero-photo { width: 280px; height: 280px; object-fit: cover; position: relative; z-index: 1; filter: grayscale(15%); }
+
+  /* Experience Timeline */
+  .timeline { position: relative; padding-left: 2rem; border-left: 1px solid var(--line); margin-top: 2rem; }
+  .timeline-item { position: relative; padding-bottom: 4rem; }
+  .timeline-item::before { content: ''; position: absolute; left: calc(-2rem - 5px); top: 5px; width: 9px; height: 9px; background: var(--amber); border-radius: 50%; }
+
+  /* Footer Icons */
+  .social-icon { width: 18px; height: 18px; fill: currentColor; vertical-align: middle; }
+
+  @media (max-width: 860px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .hero-photo-wrap { margin: 0 auto; order: -1; }
+    .nav-links { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -92,9 +106,9 @@
   <section id="hero">
     <div class="hero-inner">
       <div class="hero-text">
-        <p style="font-family: 'Azeret Mono'; color: var(--amber); font-size: 0.7rem; margin-bottom: 1rem;">MECHANICAL ENGINEERING · UWATERLOO</p>
+        <p style="font-family: 'Azeret Mono'; color: var(--amber); font-size: 0.7rem; margin-bottom: 1rem; letter-spacing: 0.1em;">MECHANICAL ENGINEERING · UWATERLOO</p>
         <h1>Noah<br><span>Yong</span></h1>
-        <p style="max-width: 550px; color: var(--text-muted); margin-bottom: 2.5rem;">Hands-on experience in machining, rapid prototyping, and CAD. Seeking Fall 2026 co-op roles in aerospace, mechanical design, and manufacturing.</p>
+        <p style="max-width: 550px; color: var(--text-muted); margin-bottom: 2.5rem;">First-year at UWaterloo with hands-on experience in machining, rapid prototyping, and CAD. Seeking Fall 2026 co-op roles in aerospace, mechanical design, or manufacturing.</p>
         <div style="display: flex; gap: 12px;">
           <button onclick="showWorks()" class="btn-primary btn-flex">View Portfolio</button>
           <a href="https://linkedin.com/in/noah-yong" target="_blank" class="btn-ghost btn-flex">LinkedIn</a>
@@ -115,7 +129,40 @@
       <div id="teaser-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5px; background: var(--line-faint);"></div>
     </section>
 
-    </div>
+    <section id="skills" class="section-wrap">
+      <h2>Technical <span>Skills</span></h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem;">
+        <div class="skill-category">
+          <h3 style="color: var(--amber); font-family: 'Azeret Mono'; font-size: 0.8rem; margin-bottom: 1.2rem; text-transform: uppercase; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;">Design & Simulation</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">SolidWorks (CSWA)<br>AutoCAD<br>Revit<br>MATLAB</p>
+        </div>
+        <div class="skill-category">
+          <h3 style="color: var(--amber); font-family: 'Azeret Mono'; font-size: 0.8rem; margin-bottom: 1.2rem; text-transform: uppercase; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;">Manufacturing</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Manual Mill & Lathe<br>3D Printing (FDM)<br>Water Jet Cutting<br>Rapid Prototyping</p>
+        </div>
+        <div class="skill-category">
+          <h3 style="color: var(--amber); font-family: 'Azeret Mono'; font-size: 0.8rem; margin-bottom: 1.2rem; text-transform: uppercase; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;">Data & Systems</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Bluebeam Revu<br>Microsoft Excel<br>Google Apps Script<br>Technical Documentation</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section-wrap">
+      <h2>Professional <span>Experience</span></h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <p style="font-family: 'Azeret Mono'; font-size: 0.7rem; color: var(--amber);">JAN 2026 — PRESENT</p>
+          <h3 style="font-family: 'Archivo Black'; font-size: 1.25rem;">HyJoule Energy Systems, Inc.</h3>
+          <p style="color: var(--text-muted);">Engineering Co-op Student</p>
+        </div>
+        <div class="timeline-item">
+          <p style="font-family: 'Azeret Mono'; font-size: 0.7rem; color: var(--amber);">MAY 2025 — AUG 2025</p>
+          <h3 style="font-family: 'Archivo Black'; font-size: 1.25rem;">MCW Group of Companies</h3>
+          <p style="color: var(--text-muted);">Mechanical Engineering Intern</p>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
 
 <div id="works-view" class="hidden">
@@ -138,8 +185,14 @@
       <h2 style="font-family: 'Archivo Black'; font-size: 3rem;">Let's <span>Connect.</span></h2>
       <p style="color: var(--text-muted); margin-bottom: 2.5rem;">Open to technical discussions regarding co-op opportunities or engineering projects.</p>
       <div style="display: flex; gap: 15px; justify-content: center;">
-        <a href="mailto:n4yong@uwaterloo.ca" class="btn-primary btn-flex">Email Me</a>
-        <a href="https://linkedin.com/in/noah-yong" target="_blank" class="btn-ghost btn-flex">LinkedIn</a>
+        <a href="mailto:n4yong@uwaterloo.ca" class="btn-primary btn-flex">
+          <svg class="social-icon" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 8.139h-18.893l5.627-8.134zm9.201-1.259l4.623-3.746v9.458l-4.623-5.712z"/></svg>
+          Email Me
+        </a>
+        <a href="https://linkedin.com/in/noah-yong" target="_blank" class="btn-ghost btn-flex">
+          <svg class="social-icon" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          LinkedIn
+        </a>
       </div>
     </div>
   </section>
@@ -159,7 +212,6 @@
 </footer>
 
 <script>
-  let currentView = 'home';
   const projects = [
     { id: 1, title: 'TT Motor Dynamometer', tags: 'Design • MATLAB', summary: 'System built to determine stall torque through controlled weight loading.', detail: 'Characterised low-cost DC motors using custom MATLAB scripts and a physical test rig.' },
     { id: 2, title: 'Waterloo Rocketry', tags: 'Propulsion • SolidWorks', summary: 'Optimized propulsion storage components for water jet fabrication.', detail: 'Fluid management component optimization for high-pressure storage tanks.' },
@@ -167,15 +219,14 @@
   ];
 
   function hideAll() { ['home-view', 'works-view', 'case-study-view'].forEach(id => document.getElementById(id).classList.add('hidden')); }
-  function showHome() { hideAll(); document.getElementById('home-view').classList.remove('hidden'); currentView = 'home'; window.scrollTo(0,0); }
-  function showWorks() { hideAll(); document.getElementById('works-view').classList.remove('hidden'); currentView = 'works'; window.scrollTo(0,0); }
+  function showHome() { hideAll(); document.getElementById('home-view').classList.remove('hidden'); window.scrollTo(0,0); }
+  function showWorks() { hideAll(); document.getElementById('works-view').classList.remove('hidden'); window.scrollTo(0,0); }
 
   function showCaseStudy(id, source) {
     const p = projects.find(item => item.id === id);
     hideAll();
     const backBtn = document.getElementById('case-back-btn');
     
-    // Set back logic based on where user clicked
     if (source === 'home') {
       backBtn.innerHTML = "&larr; BACK TO HOME";
       backBtn.onclick = showHome;
@@ -185,19 +236,35 @@
     }
 
     document.getElementById('case-study-content').innerHTML = `
-      <h1 style="font-family: 'Archivo Black';">${p.title}</h1>
+      <h1 style="font-family: 'Archivo Black'; margin-bottom: 1rem;">${p.title}</h1>
       <span style="font-family: 'Azeret Mono'; color: var(--amber);">${p.tags}</span>
       <p style="margin-top: 2rem; max-width: 800px; line-height: 1.8;">${p.detail}</p>
+      <div style="height: 300px; background: var(--bg2); border: 1px solid var(--line-faint); margin-top: 2rem; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-family: 'Azeret Mono';">PROJECT_VISUAL_ASSET</div>
     `;
     document.getElementById('case-study-view').classList.remove('hidden');
     window.scrollTo(0,0);
   }
 
-  // Card population
-  projects.forEach((p, index) => {
-    const teaserHTML = `<div class="project-card" onclick="showCaseStudy(${p.id}, 'home')">...</div>`; // Simplified for brevity
-    const allHTML = `<div class="project-card" onclick="showCaseStudy(${p.id}, 'works')">...</div>`;
-    // ... logic to append to teaser-container and all-projects-container ...
+  const teaser = document.getElementById('teaser-container');
+  const allProjs = document.getElementById('all-projects-container');
+  
+  projects.forEach((p) => {
+    const teaserCard = `
+      <div class="project-card" onclick="showCaseStudy(${p.id}, 'home')">
+        <span style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--amber);">${p.tags}</span>
+        <h3 style="margin: 0.8rem 0; font-family: 'Archivo Black'; font-size: 1.4rem;">${p.title}</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">${p.summary}</p>
+      </div>`;
+    
+    const fullCard = `
+      <div class="project-card" onclick="showCaseStudy(${p.id}, 'works')">
+        <span style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--amber);">${p.tags}</span>
+        <h3 style="margin: 0.8rem 0; font-family: 'Archivo Black'; font-size: 1.4rem;">${p.title}</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">${p.summary}</p>
+      </div>`;
+
+    teaser.innerHTML += teaserCard;
+    allProjs.innerHTML += fullCard;
   });
 </script>
 </body>
