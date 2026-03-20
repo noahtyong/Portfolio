@@ -71,33 +71,20 @@
   .btn-ghost { color: var(--text-muted); background: rgba(11,15,20,0.4); }
   .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
 
-  /* Stats Grid */
-  .screenshot-stats {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    border-top: 1px solid var(--line-faint); border-left: 1px solid var(--line-faint);
-    background: var(--bg);
+  /* Projects Grid Card */
+  .project-card { 
+    background: var(--bg2); border: 1px solid var(--line-faint); padding: 2.5rem; 
+    cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
   }
-  .stat-box { padding: 3rem 2rem; border-right: 1px solid var(--line-faint); border-bottom: 1px solid var(--line-faint); }
-  .stat-box .value { display: block; font-family: 'Archivo Black', sans-serif; font-size: 2.5rem; color: var(--amber); line-height: 1; margin-bottom: 0.5rem; }
-  .stat-box .label { font-family: 'Azeret Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.2em; }
-
-  /* Skills Grid */
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; }
-  .skill-category h3 { color: var(--amber); font-family: 'Azeret Mono', monospace; font-size: 0.8rem; margin-bottom: 1.2rem; text-transform: uppercase; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; }
-  .skill-category p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.8; }
-
-  /* Experience Timeline */
-  .timeline { position: relative; padding-left: 2rem; border-left: 1px solid var(--line); margin-top: 2rem; }
-  .timeline-item { position: relative; padding-bottom: 4rem; }
-  .timeline-item::before { content: ''; position: absolute; left: calc(-2rem - 5px); top: 5px; width: 9px; height: 9px; background: var(--amber); border-radius: 50%; }
-  .timeline-date { font-family: 'Azeret Mono', monospace; font-size: 0.7rem; color: var(--amber); margin-bottom: 0.5rem; }
-  .timeline-title { font-family: 'Archivo Black', sans-serif; font-size: 1.25rem; color: var(--white); margin-bottom: 0.25rem; }
-  .timeline-sub { color: var(--text-muted); font-size: 0.9rem; }
+  .project-card:hover { border-color: var(--amber); transform: translateY(-5px); }
+  .project-card::after { content: 'READ CASE STUDY →'; position: absolute; bottom: 1.5rem; left: 2.5rem; font-family: 'Azeret Mono'; font-size: 0.6rem; color: var(--amber); opacity: 0; transition: 0.3s; }
+  .project-card:hover::after { opacity: 1; }
 
   /* Contact & Footer */
   .contact-wrap { text-align: center; max-width: 600px; margin: 0 auto; }
   .contact-title { font-family: 'Archivo Black', sans-serif; font-size: 3rem; color: var(--white); margin-bottom: 1rem; }
-  footer { padding: 4rem 8vw; border-top: 1px solid var(--line-faint); }
+  footer { padding: 4rem 8vw; border-top: 1px solid var(--line-faint); margin-top: 4rem; }
+  .social-icon { width: 18px; height: 18px; fill: currentColor; }
 
   @media (max-width: 860px) {
     .hero-inner { grid-template-columns: 1fr; text-align: center; }
@@ -138,11 +125,11 @@
 
   <div class="section-outer">
     <section id="stats" class="section-wrap" style="padding-top: 1rem;">
-      <div class="screenshot-stats">
-        <div class="stat-box"><span class="value">6</span><span class="label">Major Projects</span></div>
-        <div class="stat-box"><span class="value">1B</span><span class="label">Academic Term</span></div>
-        <div class="stat-box"><span class="value">CSWA</span><span class="label">Certified</span></div>
-        <div class="stat-box"><span class="value">2030</span><span class="label">Grad Year</span></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border-top: 1px solid var(--line-faint); border-left: 1px solid var(--line-faint); background: var(--bg);">
+        <div style="padding: 3rem 2rem; border-right: 1px solid var(--line-faint); border-bottom: 1px solid var(--line-faint);"><span style="display: block; font-family: 'Archivo Black'; font-size: 2.5rem; color: var(--amber); line-height: 1; margin-bottom: 0.5rem;">6</span><span style="font-family: 'Azeret Mono'; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Major Projects</span></div>
+        <div style="padding: 3rem 2rem; border-right: 1px solid var(--line-faint); border-bottom: 1px solid var(--line-faint);"><span style="display: block; font-family: 'Archivo Black'; font-size: 2.5rem; color: var(--amber); line-height: 1; margin-bottom: 0.5rem;">1B</span><span style="font-family: 'Azeret Mono'; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Academic Term</span></div>
+        <div style="padding: 3rem 2rem; border-right: 1px solid var(--line-faint); border-bottom: 1px solid var(--line-faint);"><span style="display: block; font-family: 'Archivo Black'; font-size: 2.5rem; color: var(--amber); line-height: 1; margin-bottom: 0.5rem;">CSWA</span><span style="font-family: 'Azeret Mono'; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Certified</span></div>
+        <div style="padding: 3rem 2rem; border-right: 1px solid var(--line-faint); border-bottom: 1px solid var(--line-faint);"><span style="display: block; font-family: 'Archivo Black'; font-size: 2.5rem; color: var(--amber); line-height: 1; margin-bottom: 0.5rem;">2030</span><span style="font-family: 'Azeret Mono'; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Grad Year</span></div>
       </div>
     </section>
 
@@ -154,43 +141,7 @@
       <div id="teaser-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5px; background: var(--line-faint);"></div>
     </section>
 
-    <section id="skills" class="section-wrap">
-      <h2>Technical <span>Skills</span></h2>
-      <div class="skills-grid">
-        <div class="skill-category"><h3>Design & Simulation</h3><p>SolidWorks (CSWA)<br>AutoCAD<br>Revit<br>MATLAB</p></div>
-        <div class="skill-category"><h3>Manufacturing</h3><p>Manual Mill & Lathe<br>3D Printing (FDM)<br>Water Jet Cutting<br>Rapid Prototyping</p></div>
-        <div class="skill-category"><h3>Data & Systems</h3><p>Bluebeam Revu<br>Microsoft Excel<br>Google Apps Script<br>Technical Documentation</p></div>
-        <div class="skill-category"><h3>Professional</h3><p>Project Coordination<br>Mechanical Schedules<br>Stakeholder Relations<br>Instructional Leadership</p></div>
-      </div>
-    </section>
-
-    <section id="experience" class="section-wrap">
-      <h2>Professional <span>Experience</span></h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <p class="timeline-date">JAN 2026 — PRESENT</p>
-          <h3 class="timeline-title">HyJoule Energy Systems, Inc.</h3>
-          <p class="timeline-sub">Engineering Co-op Student</p>
-        </div>
-        <div class="timeline-item">
-          <p class="timeline-date">MAY 2025 — AUG 2025</p>
-          <h3 class="timeline-title">MCW Group of Companies</h3>
-          <p class="timeline-sub">Mechanical Engineering Intern</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section-wrap">
-      <div class="contact-wrap">
-        <h2 class="contact-title">Let's <span>Connect.</span></h2>
-        <p style="color: var(--text-muted); margin-bottom: 2.5rem;">Open to technical discussions regarding co-op opportunities or engineering projects.</p>
-        <div style="display: flex; gap: 15px; justify-content: center;">
-          <a href="mailto:n4yong@uwaterloo.ca" class="btn-primary btn-flex">Email Me</a>
-          <a href="https://linkedin.com/in/noah-yong" target="_blank" class="btn-ghost btn-flex">LinkedIn</a>
-        </div>
-      </div>
-    </section>
-  </div>
+    </div>
 </div>
 
 <div id="works-view" class="hidden">
@@ -200,54 +151,90 @@
   </div>
 </div>
 
+<div id="case-study-view" class="hidden">
+  <div class="section-outer" style="padding-top: 8rem; min-height: 100vh;">
+    <button onclick="showWorks()" style="background:none; border:none; cursor:pointer; color: var(--amber); font-family: 'Azeret Mono'; font-size: 0.7rem; margin-bottom: 2rem;">&larr; BACK TO ALL PROJECTS</button>
+    <div id="case-study-content"></div>
+  </div>
+</div>
+
+<div class="section-outer">
+  <section id="contact" class="section-wrap">
+    <div class="contact-wrap">
+      <h2 class="contact-title">Let's <span>Connect.</span></h2>
+      <p style="color: var(--text-muted); margin-bottom: 2.5rem;">Open to technical discussions regarding co-op opportunities or engineering projects.</p>
+      <div style="display: flex; gap: 15px; justify-content: center;">
+        <a href="mailto:n4yong@uwaterloo.ca" class="btn-primary btn-flex">
+          <svg class="social-icon" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 8.139h-18.893l5.627-8.134zm9.201-1.259l4.623-3.746v9.458l-4.623-5.712z"/></svg>
+          Email Me
+        </a>
+        <a href="https://linkedin.com/in/noah-yong" target="_blank" class="btn-ghost btn-flex">
+          <svg class="social-icon" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
 <footer>
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    <p style="color: var(--text-muted); font-size: 0.75rem;">© 2026 Noah Yong · MechEng @ UWaterloo</p>
-    <p style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--line);">LOCAL_COORD: 43.5183° N, 79.8774° W</p>
+  <div class="section-outer" style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <p style="color: var(--text-muted); font-size: 0.75rem;">© 2026 Noah Yong · MechEng @ UWaterloo</p>
+      <p style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--line); margin-top: 5px;">LOCAL_COORD: 43.5183° N, 79.8774° W</p>
+    </div>
+    <div style="display: flex; gap: 20px;">
+      <a href="mailto:n4yong@uwaterloo.ca" style="color: var(--text-muted);"><svg class="social-icon" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 8.139h-18.893l5.627-8.134zm9.201-1.259l4.623-3.746v9.458l-4.623-5.712z"/></svg></a>
+      <a href="https://linkedin.com/in/noah-yong" style="color: var(--text-muted);"><svg class="social-icon" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+    </div>
   </div>
 </footer>
 
 <script>
-  function showHome() { 
-    document.getElementById('home-view').classList.remove('hidden'); 
-    document.getElementById('works-view').classList.add('hidden'); 
-    window.scrollTo(0,0);
-  }
-  function showWorks() { 
-    document.getElementById('home-view').classList.add('hidden'); 
-    document.getElementById('works-view').classList.remove('hidden'); 
-    window.scrollTo(0,0);
-  }
-
   const projects = [
-    { title: 'TT Motor Dynamometer', tags: 'Design • MATLAB', summary: 'System built to determine stall torque through controlled weight loading.' },
-    { title: 'Waterloo Rocketry', tags: 'Propulsion • SolidWorks', summary: 'Optimized propulsion storage components for water jet fabrication.' },
-    { title: 'Mechanical Schedule Digitizer', tags: 'Automation • Python', summary: 'Programmed a Python-based extraction tool to digitize 100+ pages of mechanical equipment schedules.' },
-    { title: 'Structural Tank Bulkhead', tags: 'FEA • Manufacturing', summary: 'Redesigned hemispherical bulkheads reducing weight by 50% while maintaining a 2.4 factor of safety at 1000 psi.' },
-    { title: 'Model Rocketry Competition', tags: 'Aerodynamics • CAD', summary: 'Design and recovery system integration for high-power rocketry flight.' },
-    { title: 'Coursework CAD Collection', tags: 'SolidWorks • Assemblies', summary: 'Curated technical drawings and multi-part assemblies for mechanical design courses.' },
-    { title: 'Toy Cannon Project', tags: 'Mechanical Design', summary: 'Prototyped a functional mechanical toy using integrated spring-loaded mechanisms.' },
-    { title: 'Printed Arduino Case', tags: '3D Printing • Prototyping', summary: 'Custom enclosure designed for hardware protection and thermal management.' }
+    { id: 1, title: 'TT Motor Dynamometer', tags: 'Design • MATLAB', summary: 'System built to determine stall torque through controlled weight loading.', detail: 'This project focused on characterising low-cost DC motors. Using a custom MATLAB script and a physical test rig, I measured stall torque to validate manufacturer specifications for robotic applications.' },
+    { id: 2, title: 'Waterloo Rocketry', tags: 'Propulsion • SolidWorks', summary: 'Optimized propulsion storage components for water jet fabrication.', detail: 'As part of the Waterloo Rocketry team, I optimized internal tank storage components for fluid management. Designs were tailored for water jet cutting to ensure cost-efficiency and rapid turnaround.' },
+    { id: 3, title: 'Mechanical Schedule Digitizer', tags: 'Automation • Python', summary: 'Programmed a Python-based extraction tool to digitize 100+ pages of mechanical equipment schedules.', detail: 'Automated a manual data entry workflow using Python and PyPDF2, converting dense mechanical PDF schedules into structured Excel data for engineering project management.' },
+    { id: 4, title: 'Structural Tank Bulkhead', tags: 'FEA • Manufacturing', summary: 'Redesigned hemispherical bulkheads reducing weight by 50% while maintaining a 2.4 factor of safety at 1000 psi.', detail: 'Utilized SolidWorks FEA to iterate on bulkhead geometry. The final design achieved significant mass reduction without compromising structural integrity under high pressure.' },
+    { id: 5, title: 'Model Rocketry Competition', tags: 'Aerodynamics • CAD', summary: 'Design and recovery system integration for high-power rocketry flight.', detail: 'Led the design of a model rocket recovery system, ensuring parachute deployment at apogee. Included stability analysis via OpenRocket.' },
+    { id: 6, title: 'Coursework CAD Collection', tags: 'SolidWorks • Assemblies', summary: 'Curated technical drawings and multi-part assemblies for mechanical design courses.', detail: 'A collection of academic projects demonstrating proficiency in geometric dimensioning and tolerancing (GD&T) and complex assembly modeling.' }
   ];
 
-  const teaserContainer = document.getElementById('teaser-container');
-  projects.slice(0, 3).forEach(p => {
-    teaserContainer.innerHTML += `
-      <div style="background: var(--bg2); border: 1px solid var(--line-faint); padding: 2.5rem;">
-        <span style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--amber);">${p.tags}</span>
-        <h3 style="margin: 0.8rem 0; font-family: 'Archivo Black'; font-size: 1.2rem;">${p.title}</h3>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">${p.summary}</p>
-      </div>`;
-  });
+  function showHome() { hideAll(); document.getElementById('home-view').classList.remove('hidden'); window.scrollTo(0,0); }
+  function showWorks() { hideAll(); document.getElementById('works-view').classList.remove('hidden'); window.scrollTo(0,0); }
+  function hideAll() { 
+    ['home-view', 'works-view', 'case-study-view'].forEach(id => document.getElementById(id).classList.add('hidden')); 
+  }
 
-  const allContainer = document.getElementById('all-projects-container');
-  projects.forEach(p => {
-    allContainer.innerHTML += `
-      <div style="background: var(--bg2); border: 1px solid var(--line-faint); padding: 2.5rem;">
+  function showCaseStudy(id) {
+    const p = projects.find(item => item.id === id);
+    hideAll();
+    const caseView = document.getElementById('case-study-view');
+    document.getElementById('case-study-content').innerHTML = `
+      <h1 style="font-family: 'Archivo Black'; margin-bottom: 1rem;">${p.title}</h1>
+      <span style="font-family: 'Azeret Mono'; color: var(--amber);">${p.tags}</span>
+      <div style="margin-top: 3rem; max-width: 800px;">
+        <p style="font-size: 1.1rem; line-height: 1.8;">${p.detail}</p>
+        <div style="height: 300px; background: var(--bg2); border: 1px solid var(--line-faint); margin-top: 2rem; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-family: 'Azeret Mono';">PROJECT_VISUAL_ASSET</div>
+      </div>
+    `;
+    caseView.classList.remove('hidden');
+    window.scrollTo(0,0);
+  }
+
+  // Populate cards
+  const teaser = document.getElementById('teaser-container');
+  const allProjs = document.getElementById('all-projects-container');
+  
+  projects.forEach((p, index) => {
+    const cardHTML = `
+      <div class="project-card" onclick="showCaseStudy(${p.id})">
         <span style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--amber);">${p.tags}</span>
         <h3 style="margin: 0.8rem 0; font-family: 'Archivo Black'; font-size: 1.4rem;">${p.title}</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">${p.summary}</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">${p.summary}</p>
       </div>`;
+    if (index < 3) teaser.innerHTML += cardHTML;
+    allProjs.innerHTML += cardHTML;
   });
 </script>
 </body>
