@@ -213,9 +213,24 @@
 
 <script>
   const projects = [
-    { id: 1, title: 'TT Motor Dynamometer', tags: 'Design • MATLAB', summary: 'System built to determine stall torque through controlled weight loading.', detail: 'Characterised low-cost DC motors using custom MATLAB scripts and a physical test rig.' },
-    { id: 2, title: 'Waterloo Rocketry', tags: 'Propulsion • SolidWorks', summary: 'Optimized propulsion storage components for water jet fabrication.', detail: 'Fluid management component optimization for high-pressure storage tanks.' },
-    { id: 3, title: 'Mechanical Schedule Digitizer', tags: 'Automation • Python', summary: 'Programmed a Python-based extraction tool to digitize 100+ pages of mechanical equipment schedules.', detail: 'Automated 100+ pages of PDF data extraction into Excel for project management.' }
+    { 
+      id: 1, title: 'TT Motor Dynamometer', tags: 'Design • MATLAB', 
+      summary: 'System built to determine stall torque through controlled weight loading.', 
+      detail: 'Characterised low-cost DC motors using custom MATLAB scripts and a physical test rig.',
+      images: ['dyno1.jpg', 'dyno2.jpg']
+    },
+    { 
+      id: 2, title: 'Waterloo Rocketry', tags: 'Propulsion • SolidWorks', 
+      summary: 'Optimized propulsion storage components for water jet fabrication.', 
+      detail: 'Fluid management component optimization for high-pressure storage tanks.',
+      images: ['rocketry1.jpg']
+    },
+    { 
+      id: 3, title: 'Mechanical Schedule Digitizer', tags: 'Automation • Python', 
+      summary: 'Programmed a Python-based extraction tool to digitize 100+ pages of mechanical equipment schedules.', 
+      detail: 'Automated 100+ pages of PDF data extraction into Excel for project management.',
+      images: ['digitizer1.jpg', 'digitizer2.jpg', 'digitizer3.jpg']
+    }
   ];
 
   function hideAll() { ['home-view', 'works-view', 'case-study-view'].forEach(id => document.getElementById(id).classList.add('hidden')); }
@@ -239,8 +254,14 @@
       <h1 style="font-family: 'Archivo Black'; margin-bottom: 1rem;">${p.title}</h1>
       <span style="font-family: 'Azeret Mono'; color: var(--amber);">${p.tags}</span>
       <p style="margin-top: 2rem; max-width: 800px; line-height: 1.8;">${p.detail}</p>
-      <div style="height: 300px; background: var(--bg2); border: 1px solid var(--line-faint); margin-top: 2rem; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-family: 'Azeret Mono';">PROJECT_VISUAL_ASSET</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem;">
+        ${p.images && p.images.length
+          ? p.images.map(src => `<img src="${src}" style="width:100%; aspect-ratio:16/9; object-fit:cover; border: 1px solid var(--line-faint);">`).join('')
+          : `<div style="height:300px; background:var(--bg2); border:1px solid var(--line-faint); display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-family:'Azeret Mono';">NO_IMAGE</div>`
+        }
+      </div>
     `;
+    
     document.getElementById('case-study-view').classList.remove('hidden');
     window.scrollTo(0,0);
   }
