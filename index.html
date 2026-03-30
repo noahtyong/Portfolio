@@ -254,9 +254,14 @@
       <h1 style="font-family: 'Archivo Black'; margin-bottom: 1rem;">${p.title}</h1>
       <span style="font-family: 'Azeret Mono'; color: var(--amber);">${p.tags}</span>
       <p style="margin-top: 2rem; max-width: 800px; line-height: 1.8;">${p.detail}</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem; border: 1px solid var(--text-muted);">
         ${p.images && p.images.length
-          ? p.images.map(src => `<img src="${src}" style="width:100%; aspect-ratio:16/9; object-fit:cover; border: 1px solid var(--line-faint);">`).join('')
+          ? p.images.map(src => {
+              const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+              return isVideo
+                ? `<video src="${src}" controls style="width:100%; aspect-ratio:16/9; object-fit:cover; border: 1px solid var(--line-faint);"></video>`
+                : `<img src="${src}" style="width:100%; aspect-ratio:16/9; object-fit:cover; border: 1px solid var(--line-faint);">`;
+            }).join('')
           : `<div style="height:300px; background:var(--bg2); border:1px solid var(--line-faint); display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-family:'Azeret Mono';">NO_IMAGE</div>`
         }
       </div>
