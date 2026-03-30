@@ -89,6 +89,20 @@
     .hero-photo-wrap { margin: 0 auto; order: -1; }
     .nav-links { display: none; }
   }
+
+  /* Lightbox */
+  #lightbox {
+    display: none; position: fixed; inset: 0; z-index: 2000;
+    background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+  }
+  #lightbox.active { display: flex; }
+  #lightbox-media { max-width: 90vw; max-height: 88vh; object-fit: contain; border: 1px solid var(--line); }
+  #lightbox-close {
+    position: fixed; top: 1.5rem; right: 2rem; background: none; border: none;
+    color: var(--amber); font-family: 'Azeret Mono'; font-size: 0.75rem;
+    cursor: pointer; letter-spacing: 0.1em;
+  }
+  #lightbox-close:hover { color: var(--white); }
 </style>
 </head>
 <body>
@@ -211,23 +225,28 @@
   </div>
 </footer>
 
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">✕ CLOSE</button>
+  <div id="lightbox-media-wrap"></div>
+</div>
+
 <script>
   const projects = [
     { 
-      id: 1, title: 'Waterloo Rocketry', tags: 'Propulsion • SolidWorks', 
-      summary: 'Role: Propulsion Subteam Member', 
+      id: 1, title: 'Waterloo Rocketry', tags: 'DFM • SolidWorks', 
+      summary: 'Propulsion Subteam Member', 
       detail: 'There is always something to learn when I work with Propulsion. More often than not, this learning is applicable to the task at hand.<br /><br />For example, while designing drawer dividers to organize fittings, an upper-year teammate emphasized the importance of design for manufacturing. They suggested a simple sheet metal approach that saved me hours of CAD work, introduced me to water jet cutting, and resulted in a more robust final design.',
       images: ['image (9).png', 'image (8).png', 'Screenshot 2025-12-03 231639.png', '03 - SupportsDemo (1).mov']
     },
     { 
-      id: 2, title: 'TT Motor Dynamometer', tags: 'Design • MATLAB', 
-      summary: 'System built to determine stall torque through controlled weight loading.', 
-      detail: 'Characterised low-cost DC motors using custom MATLAB scripts and a physical test rig.',
+      id: 2, title: 'Toy Cannon Project', tags: 'Iterative Design • DFM', 
+      summary: 'Rapid Fire Cannon Prototype Developed for Amusement', 
+      detail: 'Proving mechanical viability of a toy cannon that continuously fires via a rotating crank is no easy task. This project was the epitome of iteration and rapid prototyping.<br /><br />I had to learn the hard way that fast iteration and fallback are more effective than committing to a single idea until it fails. I will never forget that moment, designing the load cell mechanism, where I gave up fake, first-try perfection and opted instead for iterative testing and concrete progress.<br /><br />Additionally, I learned first-hand the importance of designing for manufacturing. I chose an acrylic tube for the gun barrel because I believed the transparency would make prototyping easier; this was a mistake. Acrylic is a nightmare to machine and manipulate because of its brittleness, and a lot of time was spent repairing cracks in the tube with epoxy. After testing, many of the wooden components also had to be switched for metal counterparts to support the loads needed to compress the spring. A lot of time could have been saved by considering the manufacturability of the initial design.',
       images: ['dyno1.jpg', 'dyno2.jpg']
     },
     { 
-      id: 3, title: 'Mechanical Schedule Digitizer', tags: 'Automation • Python', 
-      summary: 'Programmed a Python-based extraction tool to digitize 100+ pages of mechanical equipment schedules.', 
+      id: 3, title: 'System built to determine stall torque through controlled weight loading.', tags: 'Automation • Python', 
+      summary: 'Improvised, Low Cost Dynamometer', 
       detail: 'Automated 100+ pages of PDF data extraction into Excel for project management.',
       images: ['digitizer1.jpg', 'digitizer2.jpg', 'digitizer3.jpg']
     }
@@ -254,14 +273,14 @@
       <h1 style="font-family: 'Archivo Black'; margin-bottom: 1rem;">${p.title}</h1>
       <span style="font-family: 'Azeret Mono'; color: var(--amber);">${p.tags}</span>
       <p style="margin-top: 2rem; max-width: 800px; line-height: 1.8;">${p.detail}</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem; border: 1px solid var(--text-muted);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem; border: 1px solid var(--text-muted); padding: 1rem;">
         ${p.images && p.images.length
           ? p.images.map(src => {
-              const isVideo = /\.(mp4|webm|mov)$/i.test(src);
-              return isVideo
-                ? `<video src="${src}" controls style="width:100%; aspect-ratio:16/9; object-fit:cover; border: 1px solid var(--line-faint);"></video>`
-                : `<img src="${src}" style="width:100%; aspect-ratio:16/9; object-fit:cover; border: 1px solid var(--line-faint);">`;
-            }).join('')
+            const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+            return isVideo
+              ? `<video src="${src}" onclick="openLightbox('${src}')" style="width:100%; aspect-ratio:16/9; object-fit:cover; border:1px solid var(--line-faint); cursor:pointer;"></video>`
+              : `<img src="${src}" onclick="openLightbox('${src}')" style="width:100%; aspect-ratio:16/9; object-fit:cover; border:1px solid var(--line-faint); cursor:pointer;">`;
+          }).join('')
           : `<div style="height:300px; background:var(--bg2); border:1px solid var(--line-faint); display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-family:'Azeret Mono';">NO_IMAGE</div>`
         }
       </div>
@@ -292,6 +311,28 @@
     teaser.innerHTML += teaserCard;
     allProjs.innerHTML += fullCard;
   });
+
+  function openLightbox(src) {
+    const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+    const wrap = document.getElementById('lightbox-media-wrap');
+    wrap.innerHTML = isVideo
+      ? `<video src="${src}" controls autoplay id="lightbox-media" style="max-width:90vw; max-height:88vh;"></video>`
+      : `<img src="${src}" id="lightbox-media" style="max-width:90vw; max-height:88vh; object-fit:contain; border:1px solid var(--line);">`;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.getElementById('lightbox-media-wrap').innerHTML = ''; // stops video playback
+  }
+  
+  // close on backdrop click
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+  
+  // close on Escape key
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
 </body>
 </html>
