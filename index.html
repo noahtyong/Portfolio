@@ -291,18 +291,41 @@
       <h1 style="font-family: 'Archivo Black'; margin-bottom: 1rem;">${p.title}</h1>
       <span style="font-family: 'Azeret Mono'; color: var(--amber);">${p.tags}</span>
       <p style="margin-top: 2rem; max-width: 800px; line-height: 1.8;">${p.detail}</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem; border: 1px solid var(--text-muted); padding: 1rem;">
-        ${p.images && p.images.length
-          ? p.images.map(src => {
-            const isVideo = /\.(mp4|webm|mov)$/i.test(src);
-            return isVideo
-              ? `<video src="${src}" onclick="openLightbox('${src}')" style="width:100%; aspect-ratio:16/9; object-fit:cover; border:1px solid var(--line-faint); cursor:pointer;"></video>`
-              : `<img src="${src}" onclick="openLightbox('${src}')" style="width:100%; aspect-ratio:16/9; object-fit:cover; border:1px solid var(--line-faint); cursor:pointer;">`;
-          }).join('')
-          : `<div style="height:300px; background:var(--bg2); border:1px solid var(--line-faint); display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-family:'Azeret Mono';">NO_IMAGE</div>`
-        }
-      </div>
+    
+      ${p.images && p.images.length ? `
+      <div style="margin-top: 2rem; position: relative;">
+        <div id="media-display" style="aspect-ratio:16/9; background:var(--bg2); border:1px solid var(--line-faint); display:flex; align-items:center; justify-content:center; overflow:hidden; cursor:pointer;" onclick="openLightbox(currentMedia())">
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-top:0.75rem;">
+          <button onclick="slideMedia(-1)" style="background:none; border:1px solid var(--line); color:var(--amber); font-family:'Azeret Mono'; font-size:0.75rem; padding:0.4rem 1rem; cursor:pointer;">← PREV</button>
+          <span id="media-counter" style="font-family:'Azeret Mono'; font-size:0.65rem; color:var(--text-muted);"></span>
+          <button onclick="slideMedia(1)" style="background:none; border:1px solid var(--line); color:var(--amber); font-family:'Azeret Mono'; font-size:0.75rem; padding:0.4rem 1rem; cursor:pointer;">NEXT →</button>
+        </div>
+      </div>` : ''}
     `;
+    
+    if (p.images && p.images.length) {
+      let mediaIndex = 0;
+      const images = p.images;
+    
+      window.currentMedia = () => images[mediaIndex];
+    
+      window.renderMedia = () => {
+        const src = images[mediaIndex];
+        const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+        document.getElementById('media-display').innerHTML = isVideo
+          ? `<video src="${src}" controls style="width:100%; height:100%; object-fit:contain;"></video>`
+          : `<img src="${src}" style="width:100%; height:100%; object-fit:contain;">`;
+        document.getElementById('media-counter').textContent = `${mediaIndex + 1} / ${images.length}`;
+      };
+    
+      window.slideMedia = (dir) => {
+        mediaIndex = (mediaIndex + dir + images.length) % images.length;
+        renderMedia();
+      };
+    
+      renderMedia();
+    }
     
     document.getElementById('case-study-view').classList.remove('hidden');
     window.scrollTo(0,0);
@@ -311,23 +334,24 @@
   const teaser = document.getElementById('teaser-container');
   const allProjs = document.getElementById('all-projects-container');
 
-  projects.forEach((p) => {
-    const teaserCard = `
+  projects.slice(0, 3).forEach((p) => {
+    const teaserCard = ` 
       <div class="project-card" onclick="showCaseStudy(${p.id}, 'home')">
         <span style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--amber);">${p.tags}</span>
         <h3 style="margin: 0.8rem 0; font-family: 'Archivo Black'; font-size: 1.4rem;">${p.title}</h3>
         <p style="font-size: 0.85rem; color: var(--text-muted);">${p.summary}</p>
       </div>`;
-
-    const fullCard = `
-      <div class="project-card" onclick="showCaseStudy(${p.id}, 'works')">
-        <span style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--amber);">${p.tags}</span>
-        <h3 style="margin: 0.8rem 0; font-family: 'Archivo Black'; font-size: 1.4rem;">${p.title}</h3>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">${p.summary}</p>
-      </div>`;
-
     teaser.innerHTML += teaserCard;
-    allProjs.innerHTML += fullCard;
+  });
+  
+  projects.forEach((p) => {
+      const fullCard = `
+        <div class="project-card" onclick="showCaseStudy(${p.id}, 'works')">
+          <span style="font-family: 'Azeret Mono'; font-size: 0.65rem; color: var(--amber);">${p.tags}</span>
+          <h3 style="margin: 0.8rem 0; font-family: 'Archivo Black'; font-size: 1.4rem;">${p.title}</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">${p.summary}</p>
+        </div>`;
+      allProjs.innerHTML += fullCard;
   });
 
   function openLightbox(src) {
