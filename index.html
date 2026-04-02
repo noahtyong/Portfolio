@@ -92,8 +92,13 @@
 
   /* Lightbox */
   #lightbox {
-    display: none; position: fixed; inset: 0; z-index: 2000;
-    background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+    display: none; 
+    position: fixed; 
+    inset: 0; 
+    z-index: 2000;
+    background: rgba(0,0,0,0.92); 
+    align-items: center; 
+    justify-content: center;
   }
   
   #lightbox.active { display: flex; }
@@ -125,7 +130,7 @@
   <ul class="nav-links">
     <li><a onclick="showHome()">Home</a></li>
     <li><a onclick="showWorks()">Portfolio</a></li>
-    <li><a href="#experience">Experience</a></li>
+    <li><a onclick="showExperience()">Experience</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -298,6 +303,7 @@
   function hideAll() { ['home-view', 'works-view', 'case-study-view'].forEach(id => document.getElementById(id).classList.add('hidden')); }
   function showHome() { hideAll(); document.getElementById('home-view').classList.remove('hidden'); window.scrollTo(0,0); }
   function showWorks() { hideAll(); document.getElementById('works-view').classList.remove('hidden'); window.scrollTo(0,0); }
+  function showExperience() {showHome(); setTimeout(() => document.getElementById('experience').scrollIntoView({ behavior: 'smooth' }), 50);}
 
   function showCaseStudy(id, source) {
     const p = projects.find(item => item.id === id);
@@ -322,7 +328,9 @@
         ${p.images.map((src, i) => {
           const isVideo = /\.(mp4|webm|mov)$/i.test(src);
           return isVideo
-            ? `<video src="${src}" onclick="openLightbox(${i})" style="width:100%; margin-bottom:1rem; break-inside:avoid; display:block; border:1px solid var(--line-faint); cursor:pointer;"></video>`
+            ? `<div onclick="openLightbox(${i})" style="break-inside:avoid; display:inline-block; width:100%; margin-bottom:1rem; cursor:pointer;">
+                 <video src="${src}" playsinline style="width:100%; display:block; border:1px solid var(--line-faint); pointer-events:none;"></video>
+               </div>`
             : `<img src="${src}" onclick="openLightbox(${i})" style="width:100%; margin-bottom:1rem; break-inside:avoid; display:block; border:1px solid var(--line-faint); cursor:pointer;">`;
         }).join('')}
       </div>` : ''}
@@ -365,6 +373,7 @@
     renderLightbox();
     document.getElementById('lightbox').classList.add('active');
   }
+
   
   function renderLightbox() {
     const src = lightboxImages[lightboxIndex];
