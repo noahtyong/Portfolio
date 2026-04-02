@@ -324,7 +324,7 @@
       <p style="margin-top: 2rem; max-width: 800px; line-height: 1.8;">${p.detail}</p><br />
       <hr style="border-color: var(--line);" />
       ${p.images && p.images.length ? `
-      <div style="columns: 2; column-gap: 1rem; margin-top: 2rem;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
         ${p.images.map((src, i) => {
           const isVideo = /\.(mp4|webm|mov)$/i.test(src);
           return isVideo
