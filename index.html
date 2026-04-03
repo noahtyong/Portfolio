@@ -330,7 +330,7 @@
           const isVideo = /\.(mp4|webm|mov)$/i.test(src);
           return isVideo
             ? `<div onclick="openLightbox(${i})" style="cursor:pointer; margin-bottom:1rem;">
-                 <video src="${src}" playsinline style="width:100%; display:block; border:1px solid var(--line-faint); pointer-events:none;"></video>
+                 <video src="${src}" playsinline muted class="case-media-video" style="width:100%; display:block; border:1px solid var(--line-faint); pointer-events:none;"></video>
                </div>`
             : `<img src="${src}" onclick="openLightbox(${i})" style="width:100%; display:block; margin-bottom:1rem; border:1px solid var(--line-faint); cursor:pointer;">`;
         };
@@ -343,6 +343,7 @@
     `;
 
     lightboxImages = p.images || [];
+    initAutoplayVideos();
 
     document.getElementById('case-study-view').classList.remove('hidden');
     window.scrollTo(0,0);
@@ -423,6 +424,21 @@
     document.getElementById('lightbox').classList.remove('active');
     document.getElementById('lightbox-media-wrap').innerHTML = '';
     document.querySelectorAll('.case-media-video').forEach(v => v.style.visibility = 'visible');
+  }
+
+  function initAutoplayVideos() {
+    const videos = document.querySelectorAll('.case-media-video');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.play();
+        } else {
+          entry.target.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+  
+    videos.forEach(v => observer.observe(v));
   }
   
 </script>
