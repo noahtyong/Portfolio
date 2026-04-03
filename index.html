@@ -323,17 +323,23 @@
       <span style="font-family: 'Azeret Mono'; color: var(--amber);">${p.tags}</span>
       <p style="margin-top: 2rem; max-width: 800px; line-height: 1.8;">${p.detail}</p><br />
       <hr style="border-color: var(--line);" />
-      ${p.images && p.images.length ? `
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
-        ${p.images.map((src, i) => {
+      ${p.images && p.images.length ? (() => {
+        const left = p.images.filter((_, i) => i % 2 === 0);
+        const right = p.images.filter((_, i) => i % 2 !== 0);
+        const renderItem = (src, i) => {
           const isVideo = /\.(mp4|webm|mov)$/i.test(src);
           return isVideo
-            ? `<div onclick="openLightbox(${i})" style="cursor:pointer;">
-                 <video src="${src}" playsinline class="case-media-video" style="width:100%; display:block; border:1px solid var(--line-faint); pointer-events:none;"></video>
+            ? `<div onclick="openLightbox(${i})" style="cursor:pointer; margin-bottom:1rem;">
+                 <video src="${src}" playsinline style="width:100%; display:block; border:1px solid var(--line-faint); pointer-events:none;"></video>
                </div>`
-            : `<img src="${src}" onclick="openLightbox(${i})" style="width:100%; margin-bottom:1rem; break-inside:avoid; display:block; border:1px solid var(--line-faint); cursor:pointer;">`;
-        }).join('')}
-      </div>` : ''}
+            : `<img src="${src}" onclick="openLightbox(${i})" style="width:100%; display:block; margin-bottom:1rem; border:1px solid var(--line-faint); cursor:pointer;">`;
+        };
+        return `
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:2rem; align-items:start;">
+          <div>${left.map((src) => renderItem(src, p.images.indexOf(src))).join('')}</div>
+          <div>${right.map((src) => renderItem(src, p.images.indexOf(src))).join('')}</div>
+        </div>`;
+      })() : ''}
     `;
 
     lightboxImages = p.images || [];
