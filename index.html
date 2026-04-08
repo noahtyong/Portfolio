@@ -112,15 +112,23 @@
   #lightbox-close:hover { color: var(--white); }
 
   #lightbox-prev, #lightbox-next {
-  position: fixed; top: 50%; transform: translateY(-50%);
-  background: none; border: 1px solid var(--line); color: var(--amber);
-  font-family: 'Azeret Mono'; font-size: 1.2rem;
-  padding: 0.8rem 1.2rem; cursor: pointer; z-index: 2001;
+    position: fixed; top: 50%; transform: translateY(-50%);
+    background: none; border: 1px solid var(--line); color: var(--amber);
+    font-family: 'Azeret Mono'; font-size: 1.2rem;
+    padding: 0.8rem 1.2rem; cursor: pointer; z-index: 2001;
   }
   
   #lightbox-prev { left: 1.5rem; }
   #lightbox-next { right: 1.5rem; }
   #lightbox-prev:hover, #lightbox-next:hover { border-color: var(--amber); color: var(--white); }
+
+  ul {
+    padding-left: 1.5rem; 
+    color: var(--text-muted); 
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.5rem;
+  }
 </style>
 </head>
 <body>
